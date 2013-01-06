@@ -2,11 +2,12 @@ package com.kblaney.nhlpaphotodownloader;
 
 import com.google.common.base.Function;
 import java.io.File;
+import java.net.URL;
 
 final class PlayerPhotoDownloaderImpl implements PlayerPhotoDownloader
 {
-  private final Function<Player, String> playerToProfileUrlFunction = new PlayerToProfileUrlFunction();
-  private final Function<String, String> profileUrlToImageUrlFunction = null;
+  private final Function<Player, URL> playerToProfileUrlFunction = new PlayerToProfileUrlFunction();
+  private final Function<URL, URL> profileUrlToImageUrlFunction = null;
   private final Function<Player, File> playerToOutputFileSpecFunction;
   private final Downloader downloader = null;
 
@@ -18,18 +19,18 @@ final class PlayerPhotoDownloaderImpl implements PlayerPhotoDownloader
   @Override
   public void download(final Player player)
   {
-    final String profileUrl = getProfileUrl(player);
-    final String imageUrl = getImageUrl(profileUrl);
+    final URL profileUrl = getProfileUrl(player);
+    final URL imageUrl = getImageUrl(profileUrl);
     final File outputFileSpec = getOutputFile(player);
     download(imageUrl, outputFileSpec);
   }
 
-  private String getProfileUrl(final Player player)
+  private URL getProfileUrl(final Player player)
   {
     return playerToProfileUrlFunction.apply(player);
   }
 
-  private String getImageUrl(final String profileUrl)
+  private URL getImageUrl(final URL profileUrl)
   {
     return profileUrlToImageUrlFunction.apply(profileUrl);
   }
@@ -39,7 +40,7 @@ final class PlayerPhotoDownloaderImpl implements PlayerPhotoDownloader
     return playerToOutputFileSpecFunction.apply(player);
   }
 
-  private void download(final String url, final File outputFile)
+  private void download(final URL url, final File outputFile)
   {
     downloader.download(url, outputFile);
   }

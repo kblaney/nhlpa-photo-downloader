@@ -4,7 +4,7 @@ import com.google.common.base.Function;
 
 final class PlayerProfileUrlToImageUrlFunction implements Function<String, String>
 {
-  private final Function<String, String> urlToHtmlSourceFunction = null;
+  private final Function<String, String> urlSpecToHtmlSourceFunction = null;
   private final Function<String, String> profileHtmlSourceToImageUrlFunction = null;
 
   @Override
@@ -16,7 +16,7 @@ final class PlayerProfileUrlToImageUrlFunction implements Function<String, Strin
 
   private String getProfileHtmlSource(final String playerProfileUrl)
   {
-    return urlToHtmlSourceFunction.apply(playerProfileUrl);
+    return urlSpecToHtmlSourceFunction.apply(playerProfileUrl);
   }
 
   private String getImageUrl(final String profileHtmlSource)
