@@ -1,6 +1,8 @@
-*.class
+# Eclipse-generated files
+#
+.classpath
+.project
+.settings
 
-# Package Files #
-*.jar
-*.war
-*.ear
+# Maven-generated files
+target
