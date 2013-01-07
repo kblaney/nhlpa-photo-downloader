@@ -10,17 +10,11 @@ import org.apache.commons.io.IOUtils;
 class PlayersSupplier implements Supplier<List<Player>>
 {
   private final Reader inputReader;
-  private final PlayerListInputLineParser inputLineParser;
+  private final PlayerListInputLineParser inputLineParser = new PlayerListInputLineParserImpl();
 
   public PlayersSupplier(final Reader inputReader)
   {
-    this(inputReader, new PlayerListInputLineParserImpl());
-  }
-
-  PlayersSupplier(final Reader inputReader, final PlayerListInputLineParser inputLineParser)
-  {
     this.inputReader = inputReader;
-    this.inputLineParser = inputLineParser;
   }
 
   @Override
