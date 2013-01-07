@@ -5,8 +5,20 @@ import java.net.URL;
 
 final class ProfileUrlToImageUrlFunction implements Function<URL, URL>
 {
-  private final Function<URL, String> urlToHtmlSourceFunction = new UrlToHtmlSourceFunction();
-  private final Function<String, URL> profileHtmlSourceToImageUrlFunction = new ProfileHtmlSourceToImageUrlFunction();
+  private final Function<URL, String> urlToHtmlSourceFunction;
+  private final Function<String, URL> profileHtmlSourceToImageUrlFunction;
+
+  public ProfileUrlToImageUrlFunction()
+  {
+    this(new UrlToHtmlSourceFunction(), new ProfileHtmlSourceToImageUrlFunction());
+  }
+
+  ProfileUrlToImageUrlFunction(final Function<URL, String> urlToHtmlSourceFunction,
+        final Function<String, URL> profileHtmlSourceToImageUrlFunction)
+  {
+    this.urlToHtmlSourceFunction = urlToHtmlSourceFunction;
+    this.profileHtmlSourceToImageUrlFunction = profileHtmlSourceToImageUrlFunction;
+  }
 
   @Override
   public URL apply(final URL playerProfileUrl)
