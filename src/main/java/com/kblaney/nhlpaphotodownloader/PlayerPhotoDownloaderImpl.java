@@ -6,14 +6,25 @@ import java.net.URL;
 
 final class PlayerPhotoDownloaderImpl implements PlayerPhotoDownloader
 {
-  private final Function<Player, URL> playerToProfileUrlFunction = new PlayerToProfileUrlFunction();
-  private final Function<URL, URL> profileUrlToImageUrlFunction = null;
-  private final Function<Player, File> playerToOutputFileSpecFunction;
-  private final Downloader downloader = null;
+  private final Function<Player, URL> playerToProfileUrlFunction;
+  private final Function<URL, URL> profileUrlToImageUrlFunction;
+  private final Function<Player, File> playerToOutputFileFunction;
+  private final Downloader downloader;
 
   public PlayerPhotoDownloaderImpl(final String outputFolderSpec)
   {
-    playerToOutputFileSpecFunction = new PlayerToOutputFileFunction(outputFolderSpec);
+    this(new PlayerToProfileUrlFunction(), new ProfileUrlToImageUrlFunction(), new PlayerToOutputFileFunction(
+          outputFolderSpec), new DownloaderImpl());
+  }
+
+  PlayerPhotoDownloaderImpl(final Function<Player, URL> playerToProfileUrlFunction,
+        final Function<URL, URL> profileUrlToImageUrlFunction,
+        final Function<Player, File> playerToOutputFileFunction, final Downloader downloader)
+  {
+    this.playerToProfileUrlFunction = playerToProfileUrlFunction;
+    this.profileUrlToImageUrlFunction = profileUrlToImageUrlFunction;
+    this.playerToOutputFileFunction = playerToOutputFileFunction;
+    this.downloader = downloader;
   }
 
   @Override
@@ -37,7 +48,7 @@ final class PlayerPhotoDownloaderImpl implements PlayerPhotoDownloader
 
   private File getOutputFile(final Player player)
   {
-    return playerToOutputFileSpecFunction.apply(player);
+    return playerToOutputFileFunction.apply(player);
   }
 
   private void download(final URL url, final File outputFile)
