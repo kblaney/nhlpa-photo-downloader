@@ -1,6 +1,5 @@
 package com.kblaney.nhlpaphotodownloader;
 
-import com.kblaney.commons.lang.ArgAssert;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -11,8 +10,8 @@ final class Player
 
   public Player(final String firstName, final String lastName)
   {
-    this.firstName = ArgAssert.notNull(firstName, "firstName");
-    this.lastName = ArgAssert.notNull(lastName, "lastName");
+    this.firstName = firstName;
+    this.lastName = lastName;
   }
 
   public String getFirstName()

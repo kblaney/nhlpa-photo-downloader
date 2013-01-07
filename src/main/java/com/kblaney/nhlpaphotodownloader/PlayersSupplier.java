@@ -1,9 +1,8 @@
 package com.kblaney.nhlpaphotodownloader;
 
+import com.google.common.base.Supplier;
 import com.google.common.collect.Lists;
 import java.io.IOException;
-import com.google.common.base.Supplier;
-import com.kblaney.commons.lang.ArgAssert;
 import java.io.Reader;
 import java.util.List;
 import org.apache.commons.io.IOUtils;
@@ -20,8 +19,8 @@ class PlayersSupplier implements Supplier<List<Player>>
 
   PlayersSupplier(final Reader inputReader, final PlayerListInputLineParser inputLineParser)
   {
-    this.inputReader = ArgAssert.notNull(inputReader, "inputReader");
-    this.inputLineParser = ArgAssert.notNull(inputLineParser, "inputLineParser");
+    this.inputReader = inputReader;
+    this.inputLineParser = inputLineParser;
   }
 
   @Override

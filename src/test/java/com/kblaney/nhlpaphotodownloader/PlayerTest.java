@@ -18,18 +18,6 @@ public final class PlayerTest
     player = new Player(firstName, lastName);
   }
 
-  @Test(expected = IllegalArgumentException.class)
-  public void constructor_nullFirstName()
-  {
-    new Player(null, lastName);
-  }
-
-  @Test(expected = IllegalArgumentException.class)
-  public void constructor_nullLastName()
-  {
-    new Player(firstName, null);
-  }
-
   @Test
   public void getFirstName()
   {
