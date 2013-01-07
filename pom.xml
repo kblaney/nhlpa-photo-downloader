@@ -21,16 +21,6 @@
   </build>
   <dependencies>
     <dependency>
-      <groupId>com.kblaney.commons</groupId>
-      <artifactId>kblaney-commons-lang</artifactId>
-      <version>1.0</version>
-    </dependency>
-    <dependency>
-      <groupId>com.kblaney.commons</groupId>
-      <artifactId>kblaney-commons-io</artifactId>
-      <version>1.0</version>
-    </dependency>
-    <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
       <version>3.1</version>
@@ -44,11 +34,6 @@
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
       <version>14.0-rc1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.ostermiller</groupId>
-      <artifactId>utils</artifactId>
-      <version>1.07.00</version>
     </dependency>
     <dependency>
       <groupId>junit</groupId>
