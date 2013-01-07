@@ -1,22 +1,29 @@
 package com.kblaney.nhlpaphotodownloader;
 
-import java.io.IOException;
+import java.io.FileNotFoundException;
 import com.google.common.base.Function;
+import com.google.common.base.Optional;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.nio.charset.Charset;
 import org.apache.commons.io.IOUtils;
 
-final class UrlToHtmlSourceFunction implements Function<URL, String>
+final class UrlToHtmlSourceFunction implements Function<URL, Optional<String>>
 {
   @Override
-  public String apply(final URL url)
+  public Optional<String> apply(final URL url)
   {
     InputStream inputStream = null;
     try
     {
       inputStream = url.openStream();
-      return IOUtils.toString(inputStream, Charset.forName("UTF-8"));
+      final String htmlSource = IOUtils.toString(inputStream, Charset.forName("UTF-8"));
+      return Optional.of(htmlSource);
+    }
+    catch (final FileNotFoundException e)
+    {
+      return Optional.absent();
     }
     catch (final IOException e)
     {

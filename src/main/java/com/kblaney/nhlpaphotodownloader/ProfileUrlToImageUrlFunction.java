@@ -1,11 +1,12 @@
 package com.kblaney.nhlpaphotodownloader;
 
 import com.google.common.base.Function;
+import com.google.common.base.Optional;
 import java.net.URL;
 
-final class ProfileUrlToImageUrlFunction implements Function<URL, URL>
+final class ProfileUrlToImageUrlFunction implements Function<URL, Optional<URL>>
 {
-  private final Function<URL, String> urlToHtmlSourceFunction;
+  private final Function<URL, Optional<String>> urlToHtmlSourceFunction;
   private final Function<String, URL> profileHtmlSourceToImageUrlFunction;
 
   public ProfileUrlToImageUrlFunction()
@@ -13,7 +14,7 @@ final class ProfileUrlToImageUrlFunction implements Function<URL, URL>
     this(new UrlToHtmlSourceFunction(), new ProfileHtmlSourceToImageUrlFunction());
   }
 
-  ProfileUrlToImageUrlFunction(final Function<URL, String> urlToHtmlSourceFunction,
+  ProfileUrlToImageUrlFunction(final Function<URL, Optional<String>> urlToHtmlSourceFunction,
         final Function<String, URL> profileHtmlSourceToImageUrlFunction)
   {
     this.urlToHtmlSourceFunction = urlToHtmlSourceFunction;
@@ -21,13 +22,20 @@ final class ProfileUrlToImageUrlFunction implements Function<URL, URL>
   }
 
   @Override
-  public URL apply(final URL playerProfileUrl)
+  public Optional<URL> apply(final URL playerProfileUrl)
   {
-    final String profileHtmlSource = getProfileHtmlSource(playerProfileUrl);
-    return getImageUrl(profileHtmlSource);
+    final Optional<String> profileHtmlSource = getProfileHtmlSource(playerProfileUrl);
+    if (profileHtmlSource.isPresent())
+    {
+      return Optional.of(getImageUrl(profileHtmlSource.get()));
+    }
+    else
+    {
+      return Optional.absent();
+    }
   }
 
-  private String getProfileHtmlSource(final URL playerProfileUrl)
+  private Optional<String> getProfileHtmlSource(final URL playerProfileUrl)
   {
     return urlToHtmlSourceFunction.apply(playerProfileUrl);
   }

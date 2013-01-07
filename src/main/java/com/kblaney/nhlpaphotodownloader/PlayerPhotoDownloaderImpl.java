@@ -1,13 +1,14 @@
 package com.kblaney.nhlpaphotodownloader;
 
 import com.google.common.base.Function;
+import com.google.common.base.Optional;
 import java.io.File;
 import java.net.URL;
 
 final class PlayerPhotoDownloaderImpl implements PlayerPhotoDownloader
 {
   private final Function<Player, URL> playerToProfileUrlFunction;
-  private final Function<URL, URL> profileUrlToImageUrlFunction;
+  private final Function<URL, Optional<URL>> profileUrlToImageUrlFunction;
   private final Function<Player, File> playerToOutputFileFunction;
   private final Downloader downloader;
 
@@ -18,7 +19,7 @@ final class PlayerPhotoDownloaderImpl implements PlayerPhotoDownloader
   }
 
   PlayerPhotoDownloaderImpl(final Function<Player, URL> playerToProfileUrlFunction,
-        final Function<URL, URL> profileUrlToImageUrlFunction,
+        final Function<URL, Optional<URL>> profileUrlToImageUrlFunction,
         final Function<Player, File> playerToOutputFileFunction, final Downloader downloader)
   {
     this.playerToProfileUrlFunction = playerToProfileUrlFunction;
@@ -31,9 +32,12 @@ final class PlayerPhotoDownloaderImpl implements PlayerPhotoDownloader
   public void download(final Player player)
   {
     final URL profileUrl = getProfileUrl(player);
-    final URL imageUrl = getImageUrl(profileUrl);
-    final File outputFileSpec = getOutputFile(player);
-    download(imageUrl, outputFileSpec);
+    final Optional<URL> imageUrl = getImageUrl(profileUrl);
+    if (imageUrl.isPresent())
+    {
+      final File outputFileSpec = getOutputFile(player);
+      download(imageUrl.get(), outputFileSpec);
+    }
   }
 
   private URL getProfileUrl(final Player player)
@@ -41,7 +45,7 @@ final class PlayerPhotoDownloaderImpl implements PlayerPhotoDownloader
     return playerToProfileUrlFunction.apply(player);
   }
 
-  private URL getImageUrl(final URL profileUrl)
+  private Optional<URL> getImageUrl(final URL profileUrl)
   {
     return profileUrlToImageUrlFunction.apply(profileUrl);
   }
