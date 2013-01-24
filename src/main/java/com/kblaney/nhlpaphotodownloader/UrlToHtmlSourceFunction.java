@@ -1,5 +1,6 @@
 package com.kblaney.nhlpaphotodownloader;
 
+import com.kblaney.assertions.ArgAssert;
 import java.io.FileNotFoundException;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
@@ -14,6 +15,8 @@ final class UrlToHtmlSourceFunction implements Function<URL, Optional<String>>
   @Override
   public Optional<String> apply(final URL url)
   {
+    ArgAssert.assertNotNull(url, "url");
+
     InputStream inputStream = null;
     try
     {

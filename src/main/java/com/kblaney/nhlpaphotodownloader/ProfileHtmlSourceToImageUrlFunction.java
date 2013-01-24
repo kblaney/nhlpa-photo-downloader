@@ -33,7 +33,7 @@ final class ProfileHtmlSourceToImageUrlFunction implements Function<String, URL>
     }
     catch (final MalformedURLException e)
     {
-      throw new IllegalArgumentException("Malformed URL spec in profile HTML source:" + urlSpec);
+      throw new IllegalArgumentException("Malformed URL spec in profile HTML source:" + urlSpec, e);
     }
   }
 }

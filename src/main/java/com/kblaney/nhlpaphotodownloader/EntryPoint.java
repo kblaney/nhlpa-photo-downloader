@@ -1,8 +1,10 @@
 package com.kblaney.nhlpaphotodownloader;
 
+import org.apache.commons.io.Charsets;
 import com.google.common.base.Function;
 import java.io.File;
-import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.List;
 
@@ -14,9 +16,13 @@ public final class EntryPoint
   private static final Function<Player, File> PLAYER_TO_OUTPUT_FILE_FUNCTION = new PlayerToOutputFileFunction(
         OUTPUT_FOLDER_SPEC);
 
+  private EntryPoint()
+  {
+  }
+
   public static void main(final String[] args) throws Exception
   {
-    final Reader inputReader = new FileReader(INPUT_FILE_SPEC);
+    final Reader inputReader = new InputStreamReader(new FileInputStream(INPUT_FILE_SPEC), Charsets.UTF_8);
     try
     {
       final List<Player> players = new PlayersSupplier(inputReader).get();

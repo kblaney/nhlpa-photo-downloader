@@ -1,5 +1,6 @@
 package com.kblaney.nhlpaphotodownloader;
 
+import com.kblaney.assertions.ArgAssert;
 import com.google.common.base.Function;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -9,6 +10,8 @@ final class PlayerToProfileUrlFunction implements Function<Player, URL>
   @Override
   public URL apply(final Player p)
   {
+    ArgAssert.assertNotNull(p, "p");
+
     final String urlSpec = "http://www.nhlpa.com/the-players/profile/" + convertNameToUrlComponent(p.getFirstName()) + "-" +
           convertNameToUrlComponent(p.getLastName());
     return getUrl(urlSpec);
