@@ -6,7 +6,8 @@
    <artifactId>nhlpa-photo-downloader</artifactId>
    <packaging>jar</packaging>
    <version>1.1-SNAPSHOT</version>
-   <name>NHLPA Photo Downloader</name>
+   <name>Kyle Blaney's NHLPA Photo Downloader</name>
+   <description>Kyle Blaney's NHLPA Photo Downloader</description>
    <url>https://github.com/kblaney/nhlpa-photo-downloader</url>
    <properties>
       <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
