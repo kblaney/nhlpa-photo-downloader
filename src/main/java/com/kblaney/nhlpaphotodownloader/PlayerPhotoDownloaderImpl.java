@@ -38,6 +38,10 @@ final class PlayerPhotoDownloaderImpl implements PlayerPhotoDownloader
       final File outputFileSpec = getOutputFile(player);
       download(imageUrl.get(), outputFileSpec);
     }
+    else
+    {
+      throw new NoProfileException();
+    }
   }
 
   private URL getProfileUrl(final Player player)

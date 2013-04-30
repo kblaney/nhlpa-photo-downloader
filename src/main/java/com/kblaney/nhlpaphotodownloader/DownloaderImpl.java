@@ -1,5 +1,6 @@
 package com.kblaney.nhlpaphotodownloader;
 
+import java.io.FileNotFoundException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,6 +21,10 @@ public final class DownloaderImpl implements Downloader
       inputStream = url.openStream();
       outputStream = new FileOutputStream(outputFile);
       IOUtils.copy(inputStream, outputStream);
+    }
+    catch (final FileNotFoundException e)
+    {
+      throw new NoPhotoException(e);
     }
     catch (final IOException e)
     {
