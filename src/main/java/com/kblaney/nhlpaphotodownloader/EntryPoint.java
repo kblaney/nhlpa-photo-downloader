@@ -10,7 +10,7 @@ import java.util.List;
 
 public final class EntryPoint
 {
-  private static final String INPUT_FILE_SPEC = "C:/data/hockeypool/players-2013-Playoffs.csv.txt";
+  private static final String INPUT_FILE_SPEC = "C:/data/hockeypool/players.csv.txt";
   private static final String OUTPUT_FOLDER_SPEC = "C:/data/hockeypool/nhlpa-photos";
   private static final PlayerPhotoDownloader PLAYER_PHOTO_DOWNLOADER = new PlayerPhotoDownloaderImpl(OUTPUT_FOLDER_SPEC);
   private static final Function<Player, File> PLAYER_TO_OUTPUT_FILE_FUNCTION = new PlayerToOutputFileFunction(
