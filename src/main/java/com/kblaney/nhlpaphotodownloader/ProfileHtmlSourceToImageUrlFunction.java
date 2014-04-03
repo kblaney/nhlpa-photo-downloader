@@ -21,7 +21,7 @@ final class ProfileHtmlSourceToImageUrlFunction implements Function<String, URL>
     }
     else
     {
-      throw new IllegalArgumentException("Can't find image URL in profile HTML source:" + profileHtmlSource);
+      throw new IllegalArgumentException("Can't find image URL in profile HTML source");
     }
   }
 
